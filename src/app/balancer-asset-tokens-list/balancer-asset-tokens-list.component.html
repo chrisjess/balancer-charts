@@ -1,0 +1,85 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/balancer-asset-tokens/']">Balancer Asset Tokens</a></li>
+        <li class="breadcrumb-item active" aria-current="page">List</li>
+    </ol>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bs-component">
+                <p class="text-info">
+                    All current balancer vetted coins with additional information from CoinGecko.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <context-menu #originDestinationMenu>
+            <ng-template contextMenuItem (execute)="setToken(['origin',$event.item.address])">
+                Set as Origin
+            </ng-template>
+            <ng-template contextMenuItem divider="true"></ng-template>
+            <ng-template contextMenuItem (execute)="setToken(['destination',$event.item.address])">
+                Set as Destination
+            </ng-template>
+        </context-menu>
+
+
+        <div class="col-4">
+            <h3>Balancer Vetted Tokens</h3>
+        </div>
+        <div class="col-2">
+            <div *ngIf="(balancerAssetTokensList | async)?.length > 0">
+                Total {{(balancerAssetTokensList | async)?.length}}
+            </div>
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+
+            <div class='float-right'>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                    <label title='{{sf[0]}} {{sortUp ? "Ascending (Lowest first)":"Descending (Highest first)"}}'
+                        *ngFor="let sf of sortFields" class="btn btn-sm btn-secondary active">
+                        <input type="radio" name="options" id="sort" autocomplete="off" [checked]='sortField==sf[1]'
+                            (click)='sortClicked(sf[1])'>{{sf[0]}}
+                        <fa-icon *ngIf="sortField==sf[1] && sortUp" [icon]="faSortUp"></fa-icon>
+                        <fa-icon *ngIf="sortField==sf[1] && !sortUp" [icon]="faSortDown"></fa-icon>
+                    </label>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+
+            <div>
+                Right click to send token to Origin/Destination in Tokens/Pool filter
+            </div>
+
+            <div *ngFor="let token of balancerAssetTokensList | async | orderBy: sortField : !sortUp"
+                class='token-list-item-parent' [contextMenu]="originDestinationMenu" [contextMenuSubject]="token">
+
+                <div class='token-list-item float-left'>
+                    <div [title]='token.address' style="max-height:21px; width:21px; margin-right:8px;"
+                        class='float-left'>
+                        <img style="max-height:21px; width:21px;" [src]="token.logoURI">
+                    </div>
+                    <strong [title]='token.symbol' style='width:70px;max-width:70px;'
+                        class='ellipsis float-left'>{{token.symbol}}</strong>
+                    <div [title]='token.name' class='float-left' class='token-name-item ellipsis'>{{token.name}}</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>

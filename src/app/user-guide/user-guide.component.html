@@ -1,0 +1,198 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item">User Guide</li>
+    </ol>
+</nav>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="lead">
+                Trading View Charts for Balancer Traders & Investors.
+                <br />
+                Make better trading & pool management decisions easily.
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h4><a href="balancer-asset-tokens">Tokens & Pools</a></h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h5>Token Search</h5>
+
+
+
+            <div>
+
+                <ul class="list-unstyled">
+                    <li>Search and select Vetted Balancer Pool Tokens (BPTs) from a typeahead list</li>
+                    <li>Simply click & start typing to filter</li>
+                    <li><img src="assets/images/token_lookup.png" style='width:80%' /></li>
+                    <li>Once Origin and Destination tokens are selected you may click the link directly into the Trading
+                        View chart for that BPT pair</li>
+                    <li><img src="assets/images/trading_pair_link.png" style='width:40%;' /></li>
+                    <li>The Origin Token is compared against the Destination token.</li>
+                    <li>Filter based on pool contents of that token ("I only want to see pools with at least 25% Wrapped
+                        Bitcoin")</li>
+                    <li><img src="assets/images/pool_percentage_filter.png" style='width:50%;' /></li>
+                    <li>A list of all BPTs <a href="balancer-asset-tokens/list">is available here</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h5>Pool Results</h5>
+
+            <ul class="list-unstyled">
+                <li>Once Origin and/or Destination tokens have been selcted, the list of balancer pools containing those
+                    tokens is shown</li>
+                <li><img src="assets/images/pools_found.png" style='width:80%' /></li>
+                <li>Pool results may be ordered</li>
+                <li><img src="assets/images/pool_ordering.png" style='width:50%' /></li>
+                <li>Pool Chart link directs to the Traving View chart for all BPTs in this Pool</li>
+                <li><img src="assets/images/pool_chart_link.png" style='width:30%' /></li>
+                <li>Balancer Exchange open the Pool in Balancer Exchange in a new tab.</li>
+                <li><img src="assets/images/balancer_exchange_link.png" style='width:30%' /></li>
+            </ul>
+
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>Trading View Charts</h4>
+
+            <ul class="list-unstyled">
+                <li>28 days, hourly.</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h5><a href="price-volume-chart/pair/WBTC/USDC">Token Pair Chart</a></h5>
+
+            <ul class="list-unstyled">
+                <li>Compare directly the price of origin token to destination token</li>
+                <li><img src="assets/images/wbtc_usdc_trading_pair_chart.png" style='width:90%' /></li>
+            </ul>
+
+            <ul class="list-unstyled">
+                <li>Use typeahead to match Token pairs in balancer.</li>
+                <li>Begin typing Origin and Destination (separate by slash or space) to view matching Token pairs in
+                    balancer</li>
+                <li><img src="assets/images/chart_token_lookup.png" style='width:50%' /></li>
+            </ul>
+
+        </div>
+        <div class="col-lg-6">
+            <h5><a href="price-volume-chart/pool/0xeeb82fa092e3cecb1ba99f8342775b70efb40cf8">Pool Comprison
+                    Chart</a></h5>
+
+            <ul class="list-unstyled">
+                <li>Comparison of all tokens in a Balancer pool.</li>
+                <li><img src="assets/images/pool_comparison_chart.png" style='width:90%' /></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>General Information</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h5><a href="https://balancer.finance">Balancer</a></h5>
+
+            <div>
+                Balancer is a protocol for multi-token automated market-making. It enables portfolio owners to create
+                Balancer
+                Pools,
+                and traders to trade against them. Balancer Pools contain two or more tokens, each with an independent
+                weight
+                representing its proportion of the total pool value. The pools provide the Balancer Protocol with
+                liquidity, and
+                charge
+                traders a fee for access to it. Pools can be considered automated market-makers, since anyone can swap
+                any two
+                tokens,
+                in any pool.
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h5><a href='https://www.tradingview.com/'>Trading View</a></h5>
+
+            <div>
+                Standard Trading View Financial Charts
+            </div>
+            <div>
+
+
+                <a href='https://www.tradingview.com/education/beginner/'>Learn more</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h5>Data Sources</h5>
+
+            <div>
+                <div class="bs-component">
+                    This application uses data generously provided by:
+                    <ul>
+                        <li>Coin Gecko
+                            <ul>
+                                <li> <a
+                                        href='https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1392577232&to=1422577232'>Token
+                                        prices & volumes</a>
+                                </li>
+
+                                <li><a href='https://api.coingecko.com/api/v3/coins/list?include_platform=true'>Token
+                                        information</a></li>
+                            </ul>
+                        <li>The Graph
+                            <ul>
+                                <li>
+                                    <a href='https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-beta'>Balancer
+                                        Pools Information</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>Balancer Github
+                            <ul>
+                                <li><a
+                                        href='https://raw.githubusercontent.com/balancer-labs/assets/50548de192fae33d5b91262dbba8a6ad378268f8/generated/vetted.tokenlist.json'>Balancer
+                                        Vetted Token list
+                                    </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Fleek.co<ul>
+                                <li>
+                                    <a href='https://storageapi.fleek.co/balancer-bucket/balancer-exchange/pools'>Current
+                                        Balancer Pools</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

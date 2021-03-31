@@ -1,0 +1,19 @@
+#features {
+    margin-top:25px;
+
+}
+
+#feature-left{
+    /*background: url(/assets/images/bg-pattern.png), linear-gradient(to left, #302e31, #2b2727);*/
+    background: url(assets/images/bg-pattern.png);
+}
+
+.feature-item {
+    margin: 10px;
+}
+
+.jumbotron{
+    margin:20px 8px 18px 8px ;
+    padding:20px;
+    background: linear-gradient(to left, #302e31, #2b2727);
+}

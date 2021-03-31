@@ -1,0 +1,273 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/balancer-asset-tokens/']">Balancer Asset Tokens</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Token & Pool Lookup & filter</li>
+    </ol>
+</nav>
+
+<ng-template #tokenResultTemplate let-r="result" let-t="term">
+    <div style='min-width:280px;'>
+        <img style="max-height:21px; width:21px; min-width:21px; margin-right:8px;" [src]="r.logoURI">
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+    </div>
+</ng-template>
+
+<div class="container" [hidden]='true'>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bs-component">
+                <p class="text-info">
+                    Lookup Origin and Destination tokens to view relevant Balancer Pools & open Charts
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <ng-template #selectToken>
+        <small class="form-text text-muted">Select a token below</small>
+    </ng-template>
+
+    <div class="row">
+        <div class="col-4">
+
+            <form>
+                <div class="form-group">
+
+                    <div>
+                        <label for="typeahead-origin">Origin Token</label>
+                    </div>
+
+                    <div style='height:32px; display:table-cell'>
+                        <div *ngIf='selectedOriginToken; else selectToken' style='min-width:295px;'
+                            [title]='selectedOriginToken.address'>
+                            <img style="max-height:21px; width:21px; margin-right:8px;"
+                                [src]="selectedOriginToken.logoURI">
+                            <strong>{{selectedOriginToken.symbol}}</strong> {{selectedOriginToken.name}}
+                        </div>
+                    </div>
+
+                    <input id="typeahead-origin" style='width:345px' type="text" class="form-control"
+                        [ngbTypeahead]="search" ngbtypeaheadpopup [inputFormatter]="formatter"
+                        [resultTemplate]="tokenResultTemplate" [editable]='false'
+                        (selectItem)="selectedItem('origin', $event)"
+                        placeholder="Click & type to search asset tokens" />
+
+                </div>
+                <div class="form-group">
+
+                    <small class="form-text text-muted">Pool must contain from
+                        {{originPercentRange[0]}}% to
+                        {{originPercentRange[1]}}% of
+                        token</small>
+
+                    <mv-slider id="origin-percent-range" [enabled]='!!selectedOriginToken'
+                        [(value)]="originPercentRange" [range]='true' [min]="0" [max]="100" (change)="sliderChanged()"
+                        [tooltip]='true'>
+                    </mv-slider>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-1 d-flex justify-content-center">
+            <a (click)='swapOriginDestinationTokens()' style='margin-top:30px;'
+                title="Swap Origin & Destination tokens">
+                <fa-icon [icon]="faExchangeAlt" size="2x"></fa-icon>
+            </a>
+        </div>
+
+        <div class="col-4">
+
+            <form>
+                <div class="form-group">
+
+                    <div>
+                        <label for="typeahead-origin">Destination Token</label>
+                    </div>
+
+                    <div style='height:32px; display:table-cell'>
+                        <div *ngIf='selectedDestinationToken; else selectToken' style='min-width:295px;'
+                            [title]='selectedDestinationToken.address'>
+                            <img style="max-height:21px; width:21px; margin-right:8px;"
+                                [src]="selectedDestinationToken.logoURI">
+                            <strong>{{selectedDestinationToken.symbol}}</strong> {{selectedDestinationToken.name}}
+                        </div>
+                    </div>
+
+                    <input id="typeahead-destination" type="text" class="form-control" style='width:345px'
+                        [ngbTypeahead]="search" ngbtypeaheadpopup [inputFormatter]="formatter"
+                        [resultTemplate]="tokenResultTemplate" [editable]='false'
+                        (selectItem)="selectedItem('destination', $event)"
+                        placeholder="Click & type to search asset tokens" />
+
+                </div>
+                <div class="form-group">
+
+                    <small class="form-text text-muted">Pool must contain from
+                        {{destinationPercentRange[0]}}% to
+                        {{destinationPercentRange[1]}}% of
+                        token</small>
+
+                    <mv-slider id="destination-percent-range" [enabled]="!!selectedDestinationToken"
+                        [(value)]="destinationPercentRange" [range]='true' [min]="0" [max]="100"
+                        (change)="sliderChanged()">
+                    </mv-slider>
+
+                </div>
+            </form>
+        </div>
+        <div class="col-3">
+
+            <ng-template #selectTokens>
+                <small class="form-text text-info">Select Origin & Destination token for direct link to Price/Volume
+                    Chart</small>
+            </ng-template>
+
+            <div *ngIf='originDestinationSymbolPair; else selectTokens'>
+
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a
+                                [routerLink]="['/price-volume-chart/pair/',selectedOriginToken?.symbol,selectedDestinationToken?.symbol]">
+                                <fa-icon [icon]="faChartLine" size="2x"></fa-icon>
+                                <br />
+                                {{originDestinationSymbolPair}}
+                                <br />
+                                Trading Pair Chart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-3">
+            <h5>
+                Balancer Pools Found
+            </h5>
+
+        </div>
+        <div class="col-2">
+            <small>Total {{(balancerPools$ | async)?.length}}</small>
+        </div>
+        <div class="col-2">
+            <small
+                *ngIf='(balancerPoolsFiltered$ | async)?.length > 0 && (selectedOriginToken?.symbol || selectedDestinationToken?.symbol)'>
+                {{symbolsLabel}} filtered {{(balancerPoolsFiltered$ | async)?.length}}
+            </small>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-3">
+
+            <div class='float-right'>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                    <label title='{{sf[0]}} {{sortUp ? "Ascending (Lowest first)":"Descending (Highest first)"}}'
+                        *ngFor="let sf of sortFields" class="btn btn-sm btn-secondary active">
+                        <input type="radio" name="options" id="sort" autocomplete="off" [checked]='sortField==sf[1]'
+                            (click)='sortClicked(sf[1])'>{{sf[0]}}
+                        <fa-icon *ngIf="sortField==sf[1] && sortUp" [icon]="faSortUp"></fa-icon>
+                        <fa-icon *ngIf="sortField==sf[1] && !sortUp" [icon]="faSortDown"></fa-icon>
+                    </label>
+
+                </div>
+
+            </div>
+        </div>
+
+        <context-menu #originDestinationMenu>
+            <ng-template contextMenuItem (execute)="setToken(['origin',$event.item.address])">
+                Set as Origin
+            </ng-template>
+            <ng-template contextMenuItem divider="true"></ng-template>
+            <ng-template contextMenuItem (execute)="setToken(['destination',$event.item.address])">
+                Set as Destination
+            </ng-template>
+        </context-menu>
+
+        <div class="col-12" style='margin-top:8px;'>
+
+            <div class="text-info" [hidden]=' selectedOriginToken || selectedDestinationToken'>
+                Select Asset Tokens above to view pools.
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4"
+                    *ngFor="let balancerPool of balancerPoolsFiltered$ | async | orderBy: sortField : !sortUp">
+                    <div class="card" style='margin-top:8px;'>
+
+                        <div class="card-header">
+                            <span style='font-size:11px'>{{balancerPool.id}}</span>
+                            <span title='Swap Fee {{balancerPool.swapFee}}'
+                                class="float-badge badge badge-primary float-right">{{balancerPool.swapFee}}</span>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table>
+
+                                <tr *ngFor="let token of balancerPool.tokens" [contextMenu]="originDestinationMenu"
+                                    [contextMenuSubject]="token">
+                                    <td title='{{token.balance}} balance' style='width:60px; padding-right:8px;'
+                                        class='text-right ellipsis'>
+                                        <div class='ellipsis' style="width:60px;">{{getTokenSymbol(token.address)}}
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                        <div class="progress" style="width:100px" title='{{token.poolWeight}}%'>
+                                            <div class="bar-chart bar-chart-striped" [style.width.px]="token.poolWeight"
+                                                [style.backgroundColor]="token.hexColor">
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        <small [title]='token.balance' class="ellipsis form-text text-muted"
+                                            style='width:100px; margin-left:8px;'>{{token.balance}}</small>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div class="card-footer">
+
+                            <a [routerLink]="['/price-volume-chart','pool',balancerPool.id]"
+                                title='View Trading View chart comparing all Assets in Pool' class="card-link">
+                                <fa-icon [icon]="faChartLine" size="1x"></fa-icon> Pool Chart
+                            </a>
+
+                            <a href="https://pools.balancer.exchange/#/pool/{{balancerPool.id}}" target="_blank"
+                                title='View further Pool information in balancer.exchange in new tab'
+                                class="card-link float-right">
+                                Balancer.Exchange <fa-icon [icon]="faExternalLinkAlt" size="1x"></fa-icon>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>

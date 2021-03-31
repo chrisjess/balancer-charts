@@ -1,0 +1,71 @@
+<section class="features" id="features">
+    <div class="container" style='margin-top:70px;'>
+
+        <div class="row">
+            <div class="col-lg-4" id='feature-left'>
+                <div class="device-container">
+
+                    <div class="jumbotron">
+                        <h3 class="display-5">Charts for Balancer Traders & Investors</h3>
+                        <p class="lead">Make better trading & pool management decisions easily.</p>
+                        <hr class="my-4" style='border-top: 1px solid white;'>
+                        <p>Compare prices & volumes for Balancer trading pairs</p>
+                        <p>View and filter Balancer Tokens & Pools</p>
+                        <p>Compare all Tokens in pools</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-8 my-auto">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <a [routerLink]="['/balancer-asset-tokens/']">
+                                    <fa-icon [icon]=" faCoins" size="3x"></fa-icon>
+                                    <h3>Balancer Tokens</h3>
+                                </a>
+                                <p class="text-muted">Lookup & filter vetted Blanacer tokens</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <a [routerLink]="['/price-volume-chart/']">
+                                    <fa-icon [icon]=" faChartLine" size="3x"></fa-icon>
+                                    <h3>Price & Volume Charts</h3>
+                                </a>
+                                <p class="text-muted">Compare prices and volumes for asset tokens being traded on
+                                    Balancer</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <a [routerLink]="['/balancer-asset-tokens/']">
+                                    <fa-icon [icon]=" faSwimmingPool" size="3x"></fa-icon>
+                                    <h3>Balancer Pools</h3>
+                                </a>
+                                <p class="text-muted">Visualise & filter Balancer Pools based on important information
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <a [routerLink]="['/user-guide/']">
+                                    <fa-icon [icon]=" faUserGraduate" size="3x"></fa-icon>
+                                    <h3>Learn More</h3>
+                                </a>
+                                <p class="text-muted">Information & assistance links for this tool, financial charts and
+                                    balancer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

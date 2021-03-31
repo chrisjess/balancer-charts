@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/price-volume-chart/']">Price Volume Chart</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{symbol}}</li>
+    </ol>
+</nav>
+
+<div style='padding:0px 16px 16px 16px;' [hidden]='true'>
+    <div *ngIf='this.symbolsType=="pool"; else pair'>
+        {{this.symbolsType}} {{poolId}}
+    </div>
+    <ng-template #pair>
+        {{this.symbolsType}} {{originTokenSymbol}} / {{destinationTokenSymbol}}
+    </ng-template>
+</div>
+
+<div class="app-tv-chart-container" id="tv_chart_container"></div>

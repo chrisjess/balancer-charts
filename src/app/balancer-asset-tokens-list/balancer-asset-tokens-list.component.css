@@ -1,0 +1,19 @@
+.token-list-item{
+    width:340px;
+    max-width: 340px;
+    padding:4px;
+    margin:4px;
+}
+
+.token-name-item{
+    max-width:240px;
+}
+
+.token-list-item-parent{
+    border-radius: .25rem;
+ }
+
+.token-list-item-parent :hover{
+    background-color:#303030;
+    border-radius: .25rem;
+ }
